@@ -1,4 +1,10 @@
-from src.recommender import Song, UserProfile, Recommender
+from src.recommender import (
+    Song,
+    UserProfile,
+    Recommender,
+    recommend_songs,
+    score_song,
+)
 
 def make_small_recommender() -> Recommender:
     songs = [
@@ -59,3 +65,43 @@ def test_explain_recommendation_returns_non_empty_string():
     explanation = rec.explain_recommendation(user, song)
     assert isinstance(explanation, str)
     assert explanation.strip() != ""
+
+
+def test_genre_match_is_worth_three_points_and_mood_two():
+    song = {"genre": "pop", "mood": "happy"}
+
+    genre_score, _ = score_song({"genre": "pop"}, song)
+    mood_score, _ = score_song({"mood": "happy"}, song)
+
+    assert genre_score == 3
+    assert mood_score == 2
+
+
+def test_energy_points_decrease_with_distance_from_target():
+    close_song = {"energy": 0.8}
+    distant_song = {"energy": 0.3}
+
+    close_score, _ = score_song({"energy": 0.75}, close_song)
+    distant_score, _ = score_song({"energy": 0.75}, distant_song)
+
+    assert close_score == 1.9
+    assert distant_score == 1.1
+
+
+def test_functional_recommendations_are_ranked_and_explained():
+    songs = [
+        {"title": "Chill Track", "genre": "lofi", "mood": "chill", "energy": 0.4},
+        {"title": "Pop Track", "genre": "pop", "mood": "happy", "energy": 0.8},
+    ]
+
+    results = recommend_songs(
+        {"genre": "pop", "mood": "happy", "energy": 0.8},
+        songs,
+        k=1,
+    )
+
+    assert len(results) == 1
+    assert results[0][0]["title"] == "Pop Track"
+    assert results[0][1] == 7
+    assert "Genre match" in results[0][2]
+    assert "Mood match" in results[0][2]
