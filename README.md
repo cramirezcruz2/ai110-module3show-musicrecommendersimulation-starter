@@ -69,9 +69,6 @@ python -m pytest
 
 ## Sample Recommendation Output
 
-
-The following examples show the results from running the recommender with three different user profiles.
-
 ### High-Energy Pop Profile
 
 ```text
@@ -111,7 +108,7 @@ Gym Hero - Score: 1.94
 
 ## Experiments You Tried
 
-I tested the recommender using three different user profiles: High-Energy Pop, Moody Hip-Hop, and Conflicting Preferences. Each profile received different song recommendations based on its preferences.
+I tested the recommender using three different user profiles: High Energy Pop, Moody Hip Hop, and Conflicting Preferences. Each profile received different song recommendations based on its preferences.
 
 I also changed the scoring weights to see how they affected the results. I lowered genre points from 3 to 1.5 and increased the maximum energy points from 2 to 4. The top recommended song stayed the same for all three profiles, but some other songs changed positions in the rankings. This showed me that changing the scoring weights can affect recommendations.
 
@@ -119,7 +116,7 @@ I also changed the scoring weights to see how they affected the results. I lower
 
 ## Limitations and Risks
 
-One limitation of my recommender is that it only has 15 songs, which limits the variety of recommendations. Some genres also have fewer songs than others. Another limitation is that songs can receive high scores based on energy even when they do not match the user's preferred genre or mood. The system also does not use listening history, artist preferences, tempo, or danceability when calculating scores.
+One limitation of my recommender is that it only has 15 songs, which limits the variety of recommendations. Some genres also have less songs than others. Another limitation is that songs can receive high scores based on energy even when they do not match the user's preferred genre or mood. The system also does not use listening history, artist preferences, or tempo when calculating scores.
 
 ---
 
