@@ -20,19 +20,19 @@ The recommender compares each song's genre, mood, and energy with the user's pre
 
 ## 4. Data  
 
-The system uses a CSV dataset containing 15 songs. Each song includes information such as its title, artist, genre, mood, energy, tempo, valence, danceability, and acousticness. I added five additional songs to expand the original dataset. The dataset includes different genres and moods, but it is still small and does not represent every type of music or musical preference.
+The system uses a CSV dataset containing 15 songs. Each song includes information like its title, artist, genre, mood, energy, tempo, valence, danceability, and acousticness. I added five more songs to expand the original dataset. The dataset includes different genres and moods, but it is still small and does not represent every type of music.
 
 ---
 
 ## 5. Strengths  
 
-The recommender works well when users have clear genre, mood, and energy preferences. It can produce different recommendations when users change their preferences. For example, the High-Energy Pop profile recommended Sunrise City, while the Moody Hip-Hop profile recommended Day 'n' Nite. The explanations also make it easier to understand why a song received its score.
+The recommender works well when users have clear genre, mood, and energy preferences. It produces different recommendations when users change their perferences. An example is, the High Energy Pop profile recommended Sunrise City, meanwhile the Moody Hip-Hop profile recommended Day 'n' Nite. 
 
 ---
 
 ## 6. Limitations and Bias 
 
-VibeTrack 1.0 has a small dataset of only 15 songs, which limits the variety of recommendations it can provide. Some genres have only one song, making it difficult to provide different recommendations for those preferences. Another weakness is that songs can receive high scores based on energy even when they do not match the user's preferred genre or mood, as seen with Storm Runner in my experiments. The system also does not consider listening history, favorite artists, or other features such as tempo and danceability when calculating recommendations.
+VibeTrack 1.0 has a small dataset of only 15 songs, which limits the variety of recommendations that it can provide. Some genres have only one or two songs, which makess it difficult to provide different recommendations for those preferences. Another weakness is that songs can receive high scores based on energy even when they do not match the user's preferred genre or mood, as it was seen with Storm Runner in my experiments. Another thing is that the system also does not consider listening history, or favorite artists.
 
 ---
 
@@ -40,9 +40,9 @@ VibeTrack 1.0 has a small dataset of only 15 songs, which limits the variety of 
 
 ### Step 1: Diverse User Profile Testing
 
-I tested VibeTrack 1.0 using three different user profiles: High-Energy Pop, Moody Hip-Hop, and Conflicting Preferences.
+I tested VibeTrack 1.0 using three different user profiles: High Energy Pop, Moody Hip Hop, and Conflicting Preferences.
 The High-Energy Pop profile recommended Sunrise City first with a score of 6.84 because it matched the user's preferred genre and mood while also having high energy. The Moody Hip-Hop profile recommended Day 'n' Nite first with a score of 6.42 because it matched both hip-hop and moody preferences. The Conflicting Preferences profile recommended Heartless first with a score of 6.72 because it matched hip-hop, sad mood, and had energy close to the user's target.
-One interesting result was that Storm Runner appeared in multiple recommendation lists even though it did not match the preferred genre or mood. This happened because its energy score was high. This shows that numerical features can influence recommendations even when other preferences do not match.
+One interesting result was that Storm Runner appeared in multiple recommendation lists even though it did not match the preferred genre or mood. This happened because its energy score was high. This shows that numerical features can influence recommendations even when other preferences don't match.
 
 ### Terminal Results
 
@@ -115,19 +115,19 @@ Heartless ranked first for the Conflicting Preferences profile because it matche
 The profile preferences were hip-hop, sad, and energy 0.9. Heartless has the hip-hop genre, sad mood, and an energy level of 0.76.
 Using the scoring rules in `recommender.py`:
 
-1. **Genre:** Hip-hop matches, earning 3 points.
-2. **Mood:** Sad matches, earning 2 points.
-3. **Energy:** 2 × (1 − |0.9 − 0.76|) = 1.72 points.
-4. **Acoustic:** No acoustic preference was specified, so it earns 0 points.
-**Total score: 3 + 2 + 1.72 = 6.72 points.**
+1. Genre: Hip-hop matches, earning 3 points.
+2. Mood:Sad matches, earning 2 points.
+3. Energy: 2 × (1 − |0.9 − 0.76|) = 1.72 points.
+4. Acoustic: No acoustic preference was specified, so it earns 0 points.
+Total score: 3 + 2 + 1.72 = 6.72 points.
 
 Heartless ranked above the other songs because no other song matched both hip-hop and sad. Flashing Lights scored 4.82, while Day 'n' Nite scored 4.58. This shows how matching multiple user preferences can give a song a higher recommendation score.
 
 ### Step 3: Small Data Experiment
 
 For this experiment, I doubled the importance of energy and cut the importance of genre in half. The original genre weight was 3 points, and it changed to 1.5 points. The original energy weight was 2 points, and it changed to 4 points. I kept the mood and acoustic weights the same.
-After running the program again, I noticed that some song rankings changed. For example, Rooftop Lights moved above Gym Hero in the High-Energy Pop profile, and Nights moved above Heartless in the Moody Hip-Hop profile. However, the first-place song remained the same for all three profiles.
-This experiment showed me that changing the scoring weights affects the rankings and makes energy more influential. The recommendations became different, but this does not automatically mean they became more accurate. It depends on how well the results match the user's actual music preferences.
+After running the program , I saw that some song rankings changed. For example, Rooftop Lights moved above Gym Hero in the High-Energy Pop profile, and Nights moved above Heartless in the Moody Hip-Hop profile. However, the first-place song remained the same for all three profiles.
+This experiment showed me that changing the scoring weights affects the rankings and makes energy more influential. The recommendations became different.
 
 ### Step 4: Comparing User Profiles
 
